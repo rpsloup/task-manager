@@ -2,9 +2,11 @@ import { useState, useEffect } from 'react';
 import { fetchTodoLists } from '../functions/fetchFunctions';
 
 import DefaultLayout from '../layouts/DefaultLayout';
+
+import type { Streak } from '../../../typings/streakTypes';
 import type { TodoList } from '../../../typings/todoTypes';
 
-const streakData = [
+const streakData: Streak[] = [
   { id: 0, title: 'Streak 1', days: 128 },
   { id: 1, title: 'Streak 2', days: 87 },
   { id: 2, title: 'Streak 3', days: 42 },
