@@ -1,21 +1,20 @@
 import { useState, useEffect } from 'react';
+import { fetchTodoLists } from '../functions/fetchFunctions';
 
 import type { TodoList } from '../../../typings/todoTypes';
 
 const HomePage = (): JSX.Element => {
-  const [todoData, setTodoData] = useState<TodoList[]>([]);
+  const [todoLists, setTodoLists] = useState<TodoList[]>([]);
 
   useEffect(() => {
-    fetch('http://localhost:3001/todo')
-      .then(res => res.json())
-      .then(data => setTodoData(data));
+    fetchTodoLists().then(todoLists => setTodoLists(todoLists));
   }, []);
 
   return (
     <>
       <h1>Home</h1>
       <h2>Your todo lists</h2>
-      {todoData.map(list => (
+      {todoLists.map(list => (
         <div key={list.id}>
           <h3>{list.title}</h3>
           <ul>
