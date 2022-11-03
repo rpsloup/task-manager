@@ -18,11 +18,24 @@ const TodosPage = (): JSX.Element => {
       {todoLists.map(list => (
         <div key={list.todolist_id}>
           <h3>{list.title}</h3>
-          <ul>
-            {list.todos.map(todo => (
-              <li key={todo.todo_id}>{todo.text}</li>
-            ))}
-          </ul>
+          <table>
+            <thead>
+              <tr>
+                <td><b>ID</b></td>
+                <td><b>Text</b></td>
+                <td><b>Done</b></td>
+              </tr>
+            </thead>
+            <tbody>
+              {list.todos.map(todo => (
+                <tr key={todo.todo_id}>
+                  <td>{todo.todo_id}</td>
+                  <td>{todo.text}</td>
+                  <td><input type="checkbox" checked={todo.done} readOnly /></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       ))}
     </DefaultLayout>
