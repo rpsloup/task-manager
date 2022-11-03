@@ -14,4 +14,15 @@ streakRouter.get('/streak', async (_, res) => {
   }
 });
 
+streakRouter.post('/streak', async (req, res) => {
+  try {
+    const { title, startDate } = req.body;
+    const newStreak = await pool.query('INSERT INTO Streaks (title, start) VALUES ($1, $2) RETURNING *', [title, startDate]);
+    res.json(newStreak?.rows[0] ?? null);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json('Error');
+  }
+});
+
 export default streakRouter;
