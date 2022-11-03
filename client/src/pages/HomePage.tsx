@@ -20,7 +20,7 @@ const HomePage = (): JSX.Element => {
       <h1>Home</h1>
       <h2>Your streaks</h2>
       {streaks.map(streak => (
-        <div key={streak.id}>
+        <div key={streak.streak_id}>
           <h3>{streak.title}</h3>
           <p>{streak.days} days</p>
         </div>

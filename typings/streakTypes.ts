@@ -1,5 +1,5 @@
 export type Streak = {
-  id: number;
+  streak_id: number;
   title: string;
   days: number;
 };

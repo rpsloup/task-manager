@@ -8,6 +8,8 @@ todoRouter.get('/todo', async (_, res) => {
   try {
     const todoLists = await pool.query('SELECT * FROM TodoLists');
     const todos = await pool.query('SELECT * FROM Todos');
+    if (!todoLists?.rows || !todos?.rows) return [];
+    
     const finalTodoLists = todoLists.rows.map(todoList => ({
       ...todoList,
       todos: todos?.rows?.filter(todo => todo.todolist_id === todoList.todolist_id) ?? [],

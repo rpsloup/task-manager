@@ -7,6 +7,7 @@ import todoRouter from './routes/todoRoutes';
 import streakRouter from './routes/streakRoutes';
 
 const app = express();
+app.use(express.json());
 app.use(cors());
 
 dotenv.config();
