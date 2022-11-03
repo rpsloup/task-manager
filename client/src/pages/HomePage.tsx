@@ -27,11 +27,11 @@ const HomePage = (): JSX.Element => {
       ))}
       <h2>Your todo lists</h2>
       {todoLists.map(list => (
-        <div key={list.id}>
+        <div key={list.todolist_id}>
           <h3>{list.title}</h3>
           <ul>
-            {list.todos.map((todo, index) => (
-              <li key={index}>{todo.text}</li>
+            {list.todos.map(todo => (
+              <li key={todo.todo_id}>{todo.text}</li>
             ))}
           </ul>
         </div>

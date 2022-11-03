@@ -1,32 +1,22 @@
 import { Router } from 'express';
 
-import type { TodoList } from '../../../typings/todoTypes';
+import { pool } from '../main';
 
 const todoRouter = Router();
 
-const todoData: TodoList[] = [
-  { id: 0, title: 'List 1', todos: [
-    { text: 'Todo 1' },
-    { text: 'Todo 2' },
-    { text: 'Todo 3' },
-    { text: 'Todo 4' },
-    { text: 'Todo 5' },
-  ]},
-  { id: 1, title: 'List 2', todos: [
-    { text: 'Todo 1' },
-    { text: 'Todo 2' },
-    { text: 'Todo 3' },
-  ]},
-  { id: 2, title: 'List 3', todos: [
-    { text: 'Todo 1' },
-    { text: 'Todo 2' },
-    { text: 'Todo 3' },
-    { text: 'Todo 4' },
-  ]},
-];
-
-todoRouter.get('/todo', (_, res) => {
-  res.json(todoData);
+todoRouter.get('/todo', async (_, res) => {
+  try {
+    const todoLists = await pool.query('SELECT * FROM TodoLists');
+    const todos = await pool.query('SELECT * FROM Todos');
+    const finalTodoLists = todoLists.rows.map(todoList => ({
+      ...todoList,
+      todos: todos?.rows?.filter(todo => todo.todolist_id === todoList.todolist_id) ?? [],
+    }));
+    res.json(finalTodoLists);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json('Error');
+  }
 });
 
 export default todoRouter;
