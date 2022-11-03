@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { fetchTodoLists } from '../functions/fetchFunctions';
 
+import DefaultLayout from '../layouts/DefaultLayout';
 import type { TodoList } from '../../../typings/todoTypes';
 
 const HomePage = (): JSX.Element => {
@@ -11,7 +12,7 @@ const HomePage = (): JSX.Element => {
   }, []);
 
   return (
-    <>
+    <DefaultLayout>
       <h1>Home</h1>
       <h2>Your todo lists</h2>
       {todoLists.map(list => (
@@ -24,7 +25,7 @@ const HomePage = (): JSX.Element => {
           </ul>
         </div>
       ))}
-    </>
+    </DefaultLayout>
   );
 }
 
