@@ -1,28 +1,17 @@
+import { useState, useEffect } from 'react';
+
 import type { TodoList } from '../../../typings/todoTypes';
 
-const todoData: TodoList[] = [
-  { id: 0, title: 'List 1', todos: [
-    { text: 'Todo 1' },
-    { text: 'Todo 2' },
-    { text: 'Todo 3' },
-    { text: 'Todo 4' },
-    { text: 'Todo 5' },
-  ]},
-  { id: 1, title: 'List 2', todos: [
-    { text: 'Todo 1' },
-    { text: 'Todo 2' },
-    { text: 'Todo 3' },
-  ]},
-  { id: 2, title: 'List 3', todos: [
-    { text: 'Todo 1' },
-    { text: 'Todo 2' },
-    { text: 'Todo 3' },
-    { text: 'Todo 4' },
-  ]},
-];
+const HomePage = (): JSX.Element => {
+  const [todoData, setTodoData] = useState<TodoList[]>([]);
 
-const HomePage = (): JSX.Element =>
-  (
+  useEffect(() => {
+    fetch('http://localhost:3001/todo')
+      .then(res => res.json())
+      .then(data => setTodoData(data));
+  }, []);
+
+  return (
     <>
       <h1>Home</h1>
       <h2>Your todo lists</h2>
@@ -38,5 +27,6 @@ const HomePage = (): JSX.Element =>
       ))}
     </>
   );
+}
 
 export default HomePage;
