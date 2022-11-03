@@ -2,11 +2,19 @@ import { useState, useEffect } from 'react';
 
 import DefaultLayout from '../layouts/DefaultLayout';
 import { fetchTodoLists } from '../functions/fetchFunctions';
+import { updateTodo } from '../functions/updateFunctions';
 
-import type { TodoList } from '../../../typings/todoTypes';
+import type { Todo, TodoList } from '../../../typings/todoTypes';
 
 const TodosPage = (): JSX.Element => {
   const [todoLists, setTodoLists] = useState<TodoList[]>([]);
+
+  const handleToggleActive = (todo: Todo) => {
+    updateTodo({
+      ...todo,
+      done: !todo.done,
+    });
+  }
 
   useEffect(() => {
     fetchTodoLists().then(todoLists => setTodoLists(todoLists));
@@ -31,7 +39,13 @@ const TodosPage = (): JSX.Element => {
                 <tr key={todo.todo_id}>
                   <td>{todo.todo_id}</td>
                   <td>{todo.text}</td>
-                  <td><input type="checkbox" defaultChecked={todo.done} /></td>
+                  <td>
+                    <input
+                      type="checkbox"
+                      defaultChecked={todo.done}
+                      onChange={() => handleToggleActive(todo)}
+                    />
+                  </td>
                 </tr>
               ))}
             </tbody>

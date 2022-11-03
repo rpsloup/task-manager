@@ -7,7 +7,7 @@ const todoRouter = Router();
 todoRouter.get('/todo', async (_, res) => {
   try {
     const todoLists = await pool.query('SELECT * FROM TodoLists');
-    const todos = await pool.query('SELECT * FROM Todos');
+    const todos = await pool.query('SELECT * FROM Todos ORDER BY todo_id');
     if (!todoLists?.rows || !todos?.rows) return [];
     
     const finalTodoLists = todoLists.rows.map(todoList => ({
