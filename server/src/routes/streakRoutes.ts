@@ -25,4 +25,15 @@ streakRouter.post('/streak', async (req, res) => {
   }
 });
 
+streakRouter.delete('/streak', async (req, res) => {
+  try {
+    const { id } = req.body;
+    const deletedStreak = await pool.query('DELETE FROM Streaks WHERE streak_id = $1 RETURNING *', [id]);
+    res.json(deletedStreak?.rows[0] ?? null);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json('Error');
+  }
+});
+
 export default streakRouter;
