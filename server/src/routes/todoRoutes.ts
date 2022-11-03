@@ -21,4 +21,15 @@ todoRouter.get('/todo', async (_, res) => {
   }
 });
 
+todoRouter.put('/todo', async (req, res) => {
+  try {
+    const { id, text, done } = req.body;
+    const newTodo = await pool.query('UPDATE Todos SET text = $1, done = $2 WHERE todo_id = $3 RETURNING *', [text, done, id]);
+    res.json(newTodo?.rows[0] ?? null);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json('Error');
+  }
+});
+
 export default todoRouter;

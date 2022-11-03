@@ -31,7 +31,7 @@ const TodosPage = (): JSX.Element => {
                 <tr key={todo.todo_id}>
                   <td>{todo.todo_id}</td>
                   <td>{todo.text}</td>
-                  <td><input type="checkbox" checked={todo.done} readOnly /></td>
+                  <td><input type="checkbox" defaultChecked={todo.done} /></td>
                 </tr>
               ))}
             </tbody>
