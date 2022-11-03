@@ -6,6 +6,7 @@ const PageNavigation = (): JSX.Element =>
       <h2>Page Navigation</h2>
       <ul>
         <li><Link to="/">Home</Link></li>
+        <li><Link to="/todos">Todos</Link></li>
       </ul>
     </nav>
   );
