@@ -1,0 +1,9 @@
+{
+  "name": "task-manager-server",
+  "version": "1.0.0",
+  "main": "src/main.ts",
+  "repository": "https://github.com/rpsloup/task-manager",
+  "author": "rpsloup <robin.patrik.sloup@proton.me>",
+  "license": "MIT",
+  "private": false
+}
