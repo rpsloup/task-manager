@@ -21,11 +21,22 @@ todoRouter.get('/todo', async (_, res) => {
   }
 });
 
+todoRouter.post('/todo', async (req, res) => {
+  try {
+    const { text, todolist_id } = req.body;
+    const newTodo = await pool.query('INSERT INTO Todos (text, todolist_id) VALUES ($1, $2) RETURNING *', [text, todolist_id]);
+    res.json(newTodo?.rows[0] ?? null);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json('Error');
+  }
+});
+
 todoRouter.put('/todo', async (req, res) => {
   try {
     const { id, text, done } = req.body;
-    const newTodo = await pool.query('UPDATE Todos SET text = $1, done = $2 WHERE todo_id = $3 RETURNING *', [text, done, id]);
-    res.json(newTodo?.rows[0] ?? null);
+    const updatedTodo = await pool.query('UPDATE Todos SET text = $1, done = $2 WHERE todo_id = $3 RETURNING *', [text, done, id]);
+    res.json(updatedTodo?.rows[0] ?? null);
   } catch (error) {
     console.log(error);
     res.status(500).json('Error');

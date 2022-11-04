@@ -18,6 +18,21 @@ export const addStreak = async (streak: Omit<Streak, 'streak_id' | 'days'>, star
   return newStreak ?? null;
 }
 
+export const addTodo = async (todo: Omit<Todo, 'todo_id' | 'done'>): Promise<Todo | null> => {
+  const res = await fetch(`${API_ENDPOINT}/todo`, {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      text: todo.text,
+      todolist_id: todo.todolist_id,
+    }),
+  });
+  const newTodo = await res.json();
+  return newTodo ?? null;
+}
+
 export const updateTodo = async (todo: Todo): Promise<Todo | null> => {
   const res = await fetch(`${API_ENDPOINT}/todo`, {
     method: 'put',
