@@ -2,6 +2,7 @@ export type Todo = {
   todo_id: number;
   text: string;
   done: boolean;
+  todolist_id: TodoList['todolist_id'];
 };
 
 export type TodoList = {

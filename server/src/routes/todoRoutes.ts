@@ -32,4 +32,15 @@ todoRouter.put('/todo', async (req, res) => {
   }
 });
 
+todoRouter.delete('/todo', async (req, res) => {
+  try {
+    const { id } = req.body;
+    const deletedTodo = await pool.query('DELETE FROM Todos WHERE todo_id = $1 RETURNING *', [id]);
+    res.json(deletedTodo?.rows[0] ?? null);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json('Error');
+  }
+});
+
 export default todoRouter;

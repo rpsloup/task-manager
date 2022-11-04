@@ -33,3 +33,17 @@ export const updateTodo = async (todo: Todo): Promise<Todo | null> => {
   const updatedTodo = await res.json();
   return updatedTodo ?? null;
 }
+
+export const deleteTodo = async (id: Todo['todo_id']) => {
+  const res = await fetch(`${API_ENDPOINT}/todo`, {
+    method: 'delete',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      id,
+    }),
+  });
+  const deletedTodo = await res.json();
+  return deletedTodo ?? null;
+}

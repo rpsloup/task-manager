@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 import DefaultLayout from '../layouts/DefaultLayout';
 import { fetchTodoLists } from '../functions/fetchFunctions';
-import { updateTodo } from '../functions/updateFunctions';
+import { updateTodo, deleteTodo } from '../functions/updateFunctions';
 
 import type { Todo, TodoList } from '../../../typings/todoTypes';
 
@@ -14,6 +14,20 @@ const TodosPage = (): JSX.Element => {
       ...todo,
       done: !todo.done,
     });
+  }
+
+  const handleDelete = (todo: Todo) => {
+    if (window.confirm(`Are you sure you want to delete ${todo.text} (ID: ${todo.todo_id})`)) {
+      deleteTodo(todo.todo_id);
+      setTodoLists(todoLists.map(
+        todoList => todoList.todolist_id === todo.todolist_id ? {
+          ...todoList,
+          todos: todoList.todos.filter(
+            filteredTodo => filteredTodo.todo_id !== todo.todo_id
+          )
+        } : todoList
+      ));
+    }
   }
 
   useEffect(() => {
@@ -32,6 +46,7 @@ const TodosPage = (): JSX.Element => {
                 <td><b>ID</b></td>
                 <td><b>Text</b></td>
                 <td><b>Done</b></td>
+                <td><b>Delete</b></td>
               </tr>
             </thead>
             <tbody>
@@ -46,6 +61,7 @@ const TodosPage = (): JSX.Element => {
                       onChange={() => handleToggleActive(todo)}
                     />
                   </td>
+                  <td><button onClick={() => handleDelete(todo)}>Delete</button></td>
                 </tr>
               ))}
             </tbody>
