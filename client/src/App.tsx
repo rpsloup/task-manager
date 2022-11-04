@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import StreaksPage from './pages/StreaksPage';
 import TodosPage from './pages/TodosPage';
+import AdminPage from './pages/AdminPage';
 
 const App = (): JSX.Element =>
   (
@@ -10,6 +11,7 @@ const App = (): JSX.Element =>
       <Route path="/" element={<HomePage />} />
       <Route path="/streaks" element={<StreaksPage />} />
       <Route path="/todos" element={<TodosPage />} />
+      <Route path="/admin" element={<AdminPage />} />
     </Routes>
   );
 
