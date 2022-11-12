@@ -17,7 +17,10 @@ const AdminPage = (): JSX.Element => {
   
   const handleAddStreak = (e: FormEvent) => {
     e.preventDefault();
-    if (!streakTitleRef.current || !streakDateRef.current) return;
+    if (
+      !streakTitleRef.current || !streakTitleRef.current.value ||
+      !streakDateRef.current
+    ) return;
     addStreak({
       title: streakTitleRef.current.value,
     }, streakDateRef.current.value)
@@ -25,7 +28,10 @@ const AdminPage = (): JSX.Element => {
 
   const handleAddTodo = (e: FormEvent) => {
     e.preventDefault();
-    if (!todoTextRef.current || !todoTodoListIdRef.current) return;
+    if (
+      !todoTextRef.current || !todoTextRef.current.value ||
+      !todoTodoListIdRef.current
+    ) return;
     addTodo({
       text: todoTextRef.current.value,
       todolist_id: Number(todoTodoListIdRef.current.value),
