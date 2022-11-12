@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 
 import DefaultLayout from '../layouts/DefaultLayout';
+import ContentWrapper from '../components/elements/ContentWrapper';
+
 import { fetchTodoLists } from '../functions/fetchFunctions';
 import { updateTodo, deleteTodo } from '../functions/updateFunctions';
 
@@ -36,38 +38,40 @@ const TodosPage = (): JSX.Element => {
   
   return (
     <DefaultLayout>
-      <h1>Your todo lists</h1>
-      {todoLists.map(list => (
-        <div key={list.todolist_id}>
-          <h3>{list.title}</h3>
-          <table>
-            <thead>
-              <tr>
-                <td><b>ID</b></td>
-                <td><b>Text</b></td>
-                <td><b>Done</b></td>
-                <td><b>Delete</b></td>
-              </tr>
-            </thead>
-            <tbody>
-              {list.todos.map(todo => (
-                <tr key={todo.todo_id}>
-                  <td>{todo.todo_id}</td>
-                  <td>{todo.text}</td>
-                  <td>
-                    <input
-                      type="checkbox"
-                      defaultChecked={todo.done}
-                      onChange={() => handleToggleActive(todo)}
-                    />
-                  </td>
-                  <td><button onClick={() => handleDelete(todo)}>Delete</button></td>
+      <ContentWrapper>
+        <h1>Your todo lists</h1>
+        {todoLists.map(list => (
+          <div key={list.todolist_id}>
+            <h3>{list.title}</h3>
+            <table>
+              <thead>
+                <tr>
+                  <td><b>ID</b></td>
+                  <td><b>Text</b></td>
+                  <td><b>Done</b></td>
+                  <td><b>Delete</b></td>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      ))}
+              </thead>
+              <tbody>
+                {list.todos.map(todo => (
+                  <tr key={todo.todo_id}>
+                    <td>{todo.todo_id}</td>
+                    <td>{todo.text}</td>
+                    <td>
+                      <input
+                        type="checkbox"
+                        defaultChecked={todo.done}
+                        onChange={() => handleToggleActive(todo)}
+                      />
+                    </td>
+                    <td><button onClick={() => handleDelete(todo)}>Delete</button></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ))}
+      </ContentWrapper>
     </DefaultLayout>
   );
 }

@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 
 import DefaultLayout from '../layouts/DefaultLayout';
+import ContentWrapper from '../components/elements/ContentWrapper';
+
 import { addStreak, addTodo } from '../functions/updateFunctions';
 
 import type { FormEvent } from 'react';
@@ -19,7 +21,7 @@ const AdminPage = (): JSX.Element => {
     e.preventDefault();
     if (
       !streakTitleRef.current || !streakTitleRef.current.value ||
-      !streakDateRef.current
+      !streakDateRef.current || !streakDateRef.current.value
     ) return;
     addStreak({
       title: streakTitleRef.current.value,
@@ -44,38 +46,40 @@ const AdminPage = (): JSX.Element => {
   
   return (
     <DefaultLayout>
-      <h1>Admin</h1>
-      <h2>Add a new streak</h2>
-      <form onSubmit={handleAddStreak}>
-        <input
-          type="text"
-          name="title"
-          ref={streakTitleRef}
-        />
-        <input
-          type="date"
-          name="start"
-          ref={streakDateRef}
-        />
-        <button>Add streak</button>
-      </form>
-      <h2>Add a new todo</h2>
-      <form onSubmit={handleAddTodo}>
-        <input
-          type="text"
-          name="text"
-          ref={todoTextRef}
-        />
-        <select
-          name="todolist"
-          ref={todoTodoListIdRef}
-        >
-          {todoLists.map(todoList => (
-            <option value={todoList.todolist_id}>{todoList.title}</option>
-          ))}
-        </select>
-        <button>Add todo</button>
-      </form>
+      <ContentWrapper>
+        <h1>Admin</h1>
+        <h2>Add a new streak</h2>
+        <form onSubmit={handleAddStreak}>
+          <input
+            type="text"
+            name="title"
+            ref={streakTitleRef}
+          />
+          <input
+            type="date"
+            name="start"
+            ref={streakDateRef}
+          />
+          <button>Add streak</button>
+        </form>
+        <h2>Add a new todo</h2>
+        <form onSubmit={handleAddTodo}>
+          <input
+            type="text"
+            name="text"
+            ref={todoTextRef}
+          />
+          <select
+            name="todolist"
+            ref={todoTodoListIdRef}
+          >
+            {todoLists.map(todoList => (
+              <option value={todoList.todolist_id}>{todoList.title}</option>
+            ))}
+          </select>
+          <button>Add todo</button>
+        </form>
+      </ContentWrapper>
     </DefaultLayout>
   );
 }
