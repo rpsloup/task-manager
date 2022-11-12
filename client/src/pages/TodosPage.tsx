@@ -2,15 +2,15 @@ import { useState, useEffect } from 'react';
 
 import DefaultLayout from '../layouts/DefaultLayout';
 import ContentWrapper from '../components/elements/ContentWrapper';
-import Todo from '../components/elements/Todo';
+import TodoList from '../components/blocks/TodoList';
 
 import { fetchTodoLists } from '../functions/fetchFunctions';
 import { updateTodo, deleteTodo } from '../functions/updateFunctions';
 
-import type { Todo as TodoType, TodoList } from '../../../typings/todoTypes';
+import type { Todo as TodoType, TodoList as TodoListType } from '../../../typings/todoTypes';
 
 const TodosPage = (): JSX.Element => {
-  const [todoLists, setTodoLists] = useState<TodoList[]>([]);
+  const [todoLists, setTodoLists] = useState<TodoListType[]>([]);
 
   const handleToggleActive = (todo: TodoType) => {
     updateTodo({
@@ -42,16 +42,12 @@ const TodosPage = (): JSX.Element => {
       <ContentWrapper>
         <h1>Your todo lists</h1>
         {todoLists.map(list => (
-          <div key={list.todolist_id}>
-            {list.todos.map(todo => (
-              <Todo
-                key={todo.todo_id}
-                todo={todo}
-                doneHandler={handleToggleActive}
-                deleteHandler={handleDelete}
-              />
-            ))}
-          </div>
+          <TodoList
+            key={list.todolist_id}
+            todoList={list}
+            doneHandler={handleToggleActive}
+            deleteHandler={handleDelete}
+          />
         ))}
       </ContentWrapper>
     </DefaultLayout>
