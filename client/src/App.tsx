@@ -6,6 +6,7 @@ import TodosPage from './pages/TodosPage';
 import AdminPage from './pages/AdminPage';
 
 import './styles/reset.scss';
+import './styles/main.scss';
 
 const App = (): JSX.Element =>
   (
