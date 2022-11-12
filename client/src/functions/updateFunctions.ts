@@ -1,62 +1,38 @@
+import axios from 'axios';
+
 import type { Streak } from '../../../typings/streakTypes';
 import type { Todo } from '../../../typings/todoTypes';
 
 export const addStreak = async (streak: Omit<Streak, 'streak_id' | 'days'>, startDate: string) => {
-  const res = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/streak`, {
-    method: 'post',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      title: streak.title,
-      startDate: startDate,
-    }),
+  const res = await axios.post(`${process.env.REACT_APP_API_ENDPOINT}/streak`, {
+    title: streak.title,
+    startDate: startDate,
   });
-  const newStreak = await res.json();
-  return newStreak ?? null;
+  return await res.data ?? null;
 }
 
 export const addTodo = async (todo: Omit<Todo, 'todo_id' | 'done'>): Promise<Todo | null> => {
-  const res = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/todo`, {
-    method: 'post',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      text: todo.text,
-      todolist_id: todo.todolist_id,
-    }),
+  const res = await axios.post(`${process.env.REACT_APP_API_ENDPOINT}/todo`, {
+    text: todo.text,
+    todolist_id: todo.todolist_id,
   });
-  const newTodo = await res.json();
-  return newTodo ?? null;
+  return await res.data ?? null;
 }
 
 export const updateTodo = async (todo: Todo): Promise<Todo | null> => {
-  const res = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/todo`, {
-    method: 'put',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      id: todo.todo_id,
-      text: todo.text,
-      done: todo.done,
-    }),
+  const res = await axios.put(`${process.env.REACT_APP_API_ENDPOINT}/todo`, {
+    id: todo.todo_id,
+    text: todo.text,
+    done: todo.done,
   });
-  const updatedTodo = await res.json();
-  return updatedTodo ?? null;
+  return await res.data ?? null;
 }
 
-export const deleteTodo = async (id: Todo['todo_id']) => {
-  const res = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/todo`, {
-    method: 'delete',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
+export const deleteTodo = async (id: Todo['todo_id']): Promise<Todo> => {
+  const res = await axios.delete(`${process.env.REACT_APP_API_ENDPOINT}/todo`, {
+    data: {
       id,
-    }),
+    },
   });
-  const deletedTodo = await res.json();
-  return deletedTodo ?? null;
+  return await res.data ?? null;
 }

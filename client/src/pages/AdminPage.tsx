@@ -74,7 +74,7 @@ const AdminPage = (): JSX.Element => {
             ref={todoTodoListIdRef}
           >
             {todoLists.map(todoList => (
-              <option value={todoList.todolist_id}>{todoList.title}</option>
+              <option key={todoList.todolist_id} value={todoList.todolist_id}>{todoList.title}</option>
             ))}
           </select>
           <button>Add todo</button>

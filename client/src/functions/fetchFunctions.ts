@@ -1,14 +1,24 @@
+import axios from 'axios';
+
 import type { TodoList } from '../../../typings/todoTypes';
 import type { Streak } from '../../../typings/streakTypes';
 
 export const fetchTodoLists = async (): Promise<TodoList[]> => {
-  const res = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/todo`);
-  const todoLists = await res.json();
-  return todoLists ?? [];
+  try {
+    const res = await axios.get(`${process.env.REACT_APP_API_ENDPOINT}/todo`);
+    return await res.data ?? [];
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
 }
 
 export const fetchStreaks = async (): Promise<Streak[]> => {
-  const res = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/streak`);
-  const streaks = await res.json();
-  return streaks ?? [];
+  try {
+    const res = await axios.get(`${process.env.REACT_APP_API_ENDPOINT}/streak`);
+    return await res.data ?? [];
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
 }
