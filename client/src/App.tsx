@@ -5,6 +5,8 @@ import StreaksPage from './pages/StreaksPage';
 import TodosPage from './pages/TodosPage';
 import AdminPage from './pages/AdminPage';
 
+import './styles/reset.scss';
+
 const App = (): JSX.Element =>
   (
     <Routes>
