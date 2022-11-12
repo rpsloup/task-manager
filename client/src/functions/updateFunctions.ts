@@ -1,10 +1,8 @@
 import type { Streak } from '../../../typings/streakTypes';
 import type { Todo } from '../../../typings/todoTypes';
 
-const API_ENDPOINT: string = 'http://localhost:3001';
-
 export const addStreak = async (streak: Omit<Streak, 'streak_id' | 'days'>, startDate: string) => {
-  const res = await fetch(`${API_ENDPOINT}/streak`, {
+  const res = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/streak`, {
     method: 'post',
     headers: {
       'Content-Type': 'application/json',
@@ -19,7 +17,7 @@ export const addStreak = async (streak: Omit<Streak, 'streak_id' | 'days'>, star
 }
 
 export const addTodo = async (todo: Omit<Todo, 'todo_id' | 'done'>): Promise<Todo | null> => {
-  const res = await fetch(`${API_ENDPOINT}/todo`, {
+  const res = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/todo`, {
     method: 'post',
     headers: {
       'Content-Type': 'application/json',
@@ -34,7 +32,7 @@ export const addTodo = async (todo: Omit<Todo, 'todo_id' | 'done'>): Promise<Tod
 }
 
 export const updateTodo = async (todo: Todo): Promise<Todo | null> => {
-  const res = await fetch(`${API_ENDPOINT}/todo`, {
+  const res = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/todo`, {
     method: 'put',
     headers: {
       'Content-Type': 'application/json',
@@ -50,7 +48,7 @@ export const updateTodo = async (todo: Todo): Promise<Todo | null> => {
 }
 
 export const deleteTodo = async (id: Todo['todo_id']) => {
-  const res = await fetch(`${API_ENDPOINT}/todo`, {
+  const res = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/todo`, {
     method: 'delete',
     headers: {
       'Content-Type': 'application/json',
